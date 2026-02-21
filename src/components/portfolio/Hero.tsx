@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Download, Mail } from "lucide-react";
+import { Download, Mail, ChevronDown } from "lucide-react";
 import profilePhoto from "@/assets/profile-photo.jpg";
 
 const roles = [
@@ -36,44 +36,63 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 overflow-hidden"
     >
-      <div className="max-w-7xl w-full mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+      {/* Ambient background blobs */}
+      <div className="absolute top-1/4 -left-32 w-64 h-64 sm:w-96 sm:h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-1/4 -right-32 w-64 h-64 sm:w-96 sm:h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] sm:w-[800px] sm:h-[800px] bg-secondary/3 rounded-full blur-3xl animate-glow-pulse" />
+
+      <div className="max-w-7xl w-full mx-auto flex flex-col-reverse lg:grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10 py-20 lg:py-0">
         {/* Text side */}
         <motion.div
           initial={{ opacity: 0, x: -60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="order-2 md:order-1"
+          className="text-center lg:text-left"
         >
-          <p className="text-sm font-medium tracking-widest uppercase text-primary mb-4 animate-glow-pulse">
-            Welcome to my portfolio
-          </p>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-xs sm:text-sm font-medium tracking-[0.3em] uppercase text-primary mb-4 sm:mb-6 animate-glow-pulse"
+          >
+            ⚡ Welcome to my universe
+          </motion.p>
+
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-3 sm:mb-4">
             Hi, I'm{" "}
-            <span className="text-gradient-primary glow-text">
-              Avishek Chaudhary
+            <span className="text-gradient-rgb inline-block">
+              Avishek
+            </span>
+            <br />
+            <span className="text-gradient-primary">
+              Chaudhary
             </span>
           </h1>
-          <div className="h-10 mb-6">
-            <span className="font-display text-xl sm:text-2xl text-secondary">
+
+          <div className="h-8 sm:h-10 mb-4 sm:mb-8 flex items-center justify-center lg:justify-start">
+            <span className="font-display text-lg sm:text-xl md:text-2xl text-secondary font-medium">
               {displayed}
             </span>
-            <span className="typing-cursor ml-0.5">&nbsp;</span>
+            <span className="typing-cursor ml-0.5 inline-block h-5 sm:h-6">&nbsp;</span>
           </div>
-          <p className="text-muted-foreground leading-relaxed max-w-md mb-8">
+
+          <p className="text-muted-foreground leading-relaxed max-w-md mx-auto lg:mx-0 mb-6 sm:mb-10 text-sm sm:text-base">
             Crafting pixel-perfect, performant web experiences with modern
             technologies. Passionate about clean code and beautiful interfaces.
           </p>
-          <div className="flex flex-wrap gap-4">
+
+          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start">
             <a
               href="#contact"
-              className="btn-primary-glow inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-sm"
+              className="btn-primary-glow inline-flex items-center gap-2 px-5 sm:px-8 py-2.5 sm:py-3.5 rounded-xl font-medium text-sm group"
             >
               <Mail size={16} />
               Get in Touch
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
-            <button className="btn-outline-glow inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-sm">
+            <button className="btn-outline-glow inline-flex items-center gap-2 px-5 sm:px-8 py-2.5 sm:py-3.5 rounded-xl font-medium text-sm animate-pulse-glow">
               <Download size={16} />
               Download CV
             </button>
@@ -82,37 +101,73 @@ const Hero = () => {
 
         {/* Profile photo side */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="order-1 md:order-2 flex justify-center"
+          transition={{ duration: 1, delay: 0.3, type: "spring", stiffness: 100 }}
+          className="flex justify-center"
         >
-          <div className="relative">
-            {/* Outer glow ring */}
-            <div className="absolute -inset-4 rounded-full bg-primary/10 animate-glow-pulse blur-xl" />
-            {/* Decorative ring */}
-            <div className="absolute -inset-2 rounded-full border-2 border-primary/20 animate-[spin_20s_linear_infinite]" />
-            <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden profile-glow border-2 border-primary/30">
+          <div className="profile-rgb-container">
+            {/* RGB outer glow */}
+            <div className="profile-rgb-glow" />
+            {/* RGB rotating ring */}
+            <div className="profile-rgb-ring" />
+            {/* Second ring offset */}
+            <div className="profile-rgb-ring" style={{ animationDirection: 'reverse', inset: '-10px', opacity: 0.4, filter: 'blur(4px)' }} />
+
+            {/* Decorative orbiting dot */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-[-20px] sm:inset-[-30px] z-20"
+            >
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-primary shadow-[0_0_15px_hsl(185_80%_55%/0.8)]" />
+            </motion.div>
+
+            {/* Second orbiting dot */}
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-[-15px] sm:inset-[-20px] z-20 flex justify-end items-end"
+            >
+              <div className="w-2 h-2 rounded-full bg-secondary shadow-[0_0_12px_hsl(35_90%_60%/0.8)]" />
+            </motion.div>
+
+            {/* Accent orbiting dot */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-[-25px] sm:inset-[-35px] z-20 flex items-center"
+            >
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-accent shadow-[0_0_10px_hsl(270_60%_65%/0.8)]" />
+            </motion.div>
+
+            {/* Profile image */}
+            <div className="relative w-52 h-52 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 border-primary/30 z-10">
               <img
                 src={profilePhoto}
                 alt="Avishek Chaudhary"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-top"
               />
+              {/* Overlay shimmer */}
+              <div className="absolute inset-0 animate-shimmer rounded-full pointer-events-none" />
             </div>
-            {/* Floating accent dots */}
-            <motion.div
-              animate={{ y: [-10, 10, -10] }}
-              transition={{ duration: 4, repeat: Infinity }}
-              className="absolute -top-6 -right-6 w-4 h-4 rounded-full bg-secondary"
-            />
-            <motion.div
-              animate={{ y: [10, -10, 10] }}
-              transition={{ duration: 5, repeat: Infinity }}
-              className="absolute -bottom-4 -left-4 w-3 h-3 rounded-full bg-accent"
-            />
           </div>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.a
+        href="#about"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-muted-foreground hover:text-primary transition-colors z-10"
+      >
+        <span className="text-[10px] tracking-widest uppercase">Scroll</span>
+        <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+          <ChevronDown size={18} />
+        </motion.div>
+      </motion.a>
     </section>
   );
 };

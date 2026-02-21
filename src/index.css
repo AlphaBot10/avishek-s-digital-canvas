@@ -115,6 +115,15 @@
     background-clip: text;
   }
 
+  .text-gradient-rgb {
+    background: linear-gradient(90deg, hsl(0 100% 65%), hsl(60 100% 60%), hsl(120 100% 55%), hsl(185 80% 55%), hsl(270 60% 65%), hsl(330 80% 60%));
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: rgb-shift 4s linear infinite;
+  }
+
   .glow-text {
     text-shadow: 0 0 20px hsl(185 80% 55% / 0.5), 0 0 40px hsl(185 80% 55% / 0.2);
   }
@@ -148,12 +157,122 @@
     transform: translateY(-2px);
   }
 
+  /* RGB Rotating Ring for Profile */
+  .profile-rgb-container {
+    position: relative;
+  }
+
+  .profile-rgb-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    padding: 3px;
+    background: conic-gradient(
+      from var(--rgb-angle, 0deg),
+      hsl(0 100% 60%),
+      hsl(45 100% 60%),
+      hsl(120 100% 50%),
+      hsl(185 100% 55%),
+      hsl(240 100% 65%),
+      hsl(300 100% 60%),
+      hsl(0 100% 60%)
+    );
+    animation: rgb-rotate 3s linear infinite;
+    mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #fff calc(100% - 3px));
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #fff calc(100% - 3px));
+  }
+
+  .profile-rgb-glow {
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from var(--rgb-angle, 0deg),
+      hsl(0 100% 60% / 0.4),
+      hsl(45 100% 60% / 0.3),
+      hsl(120 100% 50% / 0.4),
+      hsl(185 100% 55% / 0.3),
+      hsl(240 100% 65% / 0.4),
+      hsl(300 100% 60% / 0.3),
+      hsl(0 100% 60% / 0.4)
+    );
+    animation: rgb-rotate 3s linear infinite;
+    filter: blur(25px);
+    z-index: -1;
+  }
+
   .profile-glow {
     box-shadow: 0 0 40px hsl(185 80% 55% / 0.3), 0 0 80px hsl(185 80% 55% / 0.15), 0 0 120px hsl(185 80% 55% / 0.05);
   }
 
   .skill-ring {
     filter: drop-shadow(0 0 6px hsl(185 80% 55% / 0.4));
+  }
+
+  /* Section divider glow line */
+  .section-glow-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(185 80% 55% / 0.5), hsl(270 60% 65% / 0.5), transparent);
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  /* RGB border card effect */
+  .rgb-border-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .rgb-border-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    padding: 1px;
+    background: conic-gradient(
+      from var(--rgb-angle, 0deg),
+      hsl(185 80% 55% / 0.6),
+      hsl(270 60% 65% / 0.4),
+      hsl(35 90% 60% / 0.4),
+      hsl(185 80% 55% / 0.6)
+    );
+    animation: rgb-rotate 6s linear infinite;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+  }
+
+  /* Neon underline for headings */
+  .neon-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .neon-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+    box-shadow: 0 0 10px hsl(185 80% 55% / 0.5), 0 0 20px hsl(185 80% 55% / 0.3);
+  }
+
+  /* Hover glow card */
+  .hover-glow-card {
+    @apply glass-panel transition-all duration-500;
+  }
+
+  .hover-glow-card:hover {
+    border-color: hsl(185 80% 55% / 0.4);
+    box-shadow:
+      0 0 20px hsl(185 80% 55% / 0.15),
+      0 0 40px hsl(270 60% 65% / 0.1),
+      inset 0 0 30px hsl(185 80% 55% / 0.05);
+    transform: translateY(-6px) scale(1.02);
   }
 }
 
@@ -185,4 +304,45 @@
     border-right: 2px solid hsl(185 80% 55%);
     animation: typing-cursor 1s step-end infinite;
   }
+
+  @keyframes rgb-rotate {
+    to {
+      --rgb-angle: 360deg;
+    }
+  }
+
+  @keyframes rgb-shift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(185 80% 55% / 0.2), 0 0 40px hsl(185 80% 55% / 0.1);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(185 80% 55% / 0.4), 0 0 80px hsl(270 60% 65% / 0.2);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent 0%, hsl(185 80% 55% / 0.1) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+  }
+}
+
+@property --rgb-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
 }
