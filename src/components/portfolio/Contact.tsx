@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Github, Linkedin, Twitter } from "lucide-react";
+import { Send, Github, Linkedin, Twitter, Sparkles, MapPin, Mail as MailIcon } from "lucide-react";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -12,14 +12,13 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Placeholder
     alert("Message sent! (This is a demo)");
     setForm({ name: "", email: "", message: "" });
   };
 
   const inputClass = (field: string) =>
     `w-full bg-transparent border-b-2 py-3 px-1 text-sm text-foreground outline-none transition-all duration-300 placeholder-transparent peer ${
-      focused === field ? "border-primary" : "border-border"
+      focused === field ? "border-primary shadow-[0_2px_10px_hsl(185_80%_55%/0.3)]" : "border-border"
     }`;
 
   const labelClass =
@@ -28,28 +27,32 @@ const Contact = () => {
   const hasValue = (field: string) => form[field as keyof typeof form].length > 0;
 
   return (
-    <section id="contact" className="relative py-24 px-6 z-10">
+    <section id="contact" className="relative py-20 sm:py-28 px-4 sm:px-6 z-10">
+      <div className="section-glow-line max-w-4xl mx-auto mb-16 sm:mb-20" />
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-2">
-            Get in <span className="text-gradient-primary">Touch</span>
+          <div className="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-primary mb-4">
+            <Sparkles size={14} /> Contact
+          </div>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold">
+            Get in <span className="text-gradient-primary neon-underline">Touch</span>
           </h2>
-          <div className="w-16 h-1 bg-primary rounded-full mb-8" />
         </motion.div>
 
-        <div className="grid md:grid-cols-5 gap-10">
+        <div className="grid md:grid-cols-5 gap-6 sm:gap-10">
           <motion.form
             onSubmit={handleSubmit}
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="md:col-span-3 glass-panel p-8 space-y-8"
+            className="md:col-span-3 rgb-border-card glass-panel p-6 sm:p-8 space-y-8"
           >
             {(["name", "email", "message"] as const).map((field) => (
               <div key={field} className="relative">
@@ -86,13 +89,15 @@ const Contact = () => {
               </div>
             ))}
 
-            <button
+            <motion.button
               type="submit"
-              className="btn-primary-glow inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-sm"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="btn-primary-glow inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-medium text-sm w-full sm:w-auto justify-center"
             >
               <Send size={16} />
               Send Message
-            </button>
+            </motion.button>
           </motion.form>
 
           <motion.div
@@ -100,11 +105,14 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="md:col-span-2 flex flex-col justify-center gap-6"
+            className="md:col-span-2 flex flex-col gap-4 sm:gap-6"
           >
-            <div className="glass-panel p-6">
-              <h3 className="font-display font-semibold text-sm mb-4">Connect with me</h3>
-              <div className="flex flex-col gap-4">
+            <div className="hover-glow-card p-5 sm:p-6">
+              <h3 className="font-display font-semibold text-sm mb-4 flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_hsl(185_80%_55%/0.6)]" />
+                Connect with me
+              </h3>
+              <div className="flex flex-col gap-3 sm:gap-4">
                 {[
                   { icon: Github, label: "GitHub", href: "https://github.com" },
                   { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
@@ -115,14 +123,25 @@ const Contact = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group"
+                    className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-all duration-300 group hover:translate-x-2"
                   >
-                    <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                    <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 group-hover:shadow-[0_0_15px_hsl(185_80%_55%/0.3)] transition-all">
                       <social.icon size={16} />
                     </div>
                     {social.label}
                   </a>
                 ))}
+              </div>
+            </div>
+
+            <div className="hover-glow-card p-5 sm:p-6">
+              <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
+                <MapPin size={16} className="text-primary" />
+                India
+              </div>
+              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                <MailIcon size={16} className="text-primary" />
+                avishek@example.com
               </div>
             </div>
           </motion.div>
