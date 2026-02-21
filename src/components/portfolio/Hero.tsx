@@ -146,7 +146,7 @@ const Hero = () => {
               <img
                 src={profilePhoto}
                 alt="Avishek Chaudhary"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-[center_20%]"
               />
               {/* Overlay shimmer */}
               <div className="absolute inset-0 animate-shimmer rounded-full pointer-events-none" />
