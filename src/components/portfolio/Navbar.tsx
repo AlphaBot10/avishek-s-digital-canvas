@@ -92,7 +92,16 @@ const Navbar = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileOpen(false);
+                    const target = document.querySelector(link.href);
+                    if (target) {
+                      setTimeout(() => {
+                        target.scrollIntoView({ behavior: "smooth" });
+                      }, 300);
+                    }
+                  }}
                   className={`text-sm font-medium px-4 py-3 rounded-lg transition-all ${
                     activeSection === link.href.slice(1)
                       ? "text-primary bg-primary/10"
