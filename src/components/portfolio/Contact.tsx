@@ -137,11 +137,11 @@ const Contact = () => {
             <div className="hover-glow-card p-5 sm:p-6">
               <div className="flex items-center gap-3 text-sm text-muted-foreground mb-3">
                 <MapPin size={16} className="text-primary" />
-                India
+                Nepal
               </div>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <MailIcon size={16} className="text-primary" />
-                avishek@example.com
+                chyavishek98@gmail.com
               </div>
             </div>
           </motion.div>
