@@ -8,8 +8,8 @@ const highlights = [
 ];
 
 const stats = [
-  { value: "3+", label: "Years Experience" },
-  { value: "20+", label: "Projects Completed" },
+  { value: "0+", label: "Years Experience" },
+  { value: "10+", label: "Projects Completed" },
   { value: "10+", label: "Technologies" },
 ];
 

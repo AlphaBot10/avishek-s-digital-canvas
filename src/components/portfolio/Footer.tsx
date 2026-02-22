@@ -26,7 +26,7 @@ const Footer = () => {
           ))}
         </div>
         <p className="text-xs text-muted-foreground">
-          Built with <span className="text-primary">♥</span> and React
+           <span className="text-primary"></span>
         </p>
       </div>
     </footer>
